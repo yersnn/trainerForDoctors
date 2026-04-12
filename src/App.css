@@ -1,0 +1,227 @@
+/* ===========================
+   TRAINER
+   =========================== */
+.trainer {
+  width: 100%;
+  max-width: 680px;
+  padding: 24px 20px;
+  margin: 0 auto;
+}
+
+.trainer-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 28px rgba(0,0,0,0.06);
+}
+
+.trainer-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.btn-back {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #475569;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-back:hover {
+  background: #e2e8f0;
+}
+
+.trainer-progress-area {
+  flex: 1;
+  min-width: 0;
+}
+
+.trainer-counter {
+  font-size: 0.813rem;
+  font-weight: 600;
+  color: #64748b;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.difficulty-badge {
+  font-size: 0.688rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.difficulty-badge[data-level="Easy"] {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.difficulty-badge[data-level="Medium"] {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.difficulty-badge[data-level="Hard"] {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.slider-area {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  max-height: 450px;
+}
+
+.image-area {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #f8fafc;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.question-panel {
+  text-align: center;
+}
+
+.question-panel h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn {
+  font-size: 0.938rem;
+  font-weight: 600;
+  padding: 11px 32px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.15s;
+  background: #0284c7;
+  color: #fff;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  background: #fff;
+  color: #475569;
+  border: 1.5px solid #cbd5e1;
+}
+
+.btn-outline:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.btn-yes { background: #16a34a; }
+.btn-yes:hover { box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
+
+.btn-no { background: #64748b; }
+.btn-no:hover { box-shadow: 0 4px 12px rgba(100,116,139,0.3); }
+
+.btn-polyp { background: #dc2626; }
+.btn-polyp:hover { box-shadow: 0 4px 12px rgba(220,38,38,0.3); }
+
+.btn-nopolyp { background: #64748b; }
+.btn-nopolyp:hover { box-shadow: 0 4px 12px rgba(100,116,139,0.3); }
+
+.done-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.trainer-card h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.done-text {
+  color: #64748b;
+  margin-bottom: 28px;
+}
+
+.done-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+@media (max-width: 560px) {
+  .trainer { padding: 16px 12px; }
+  .btn-group { flex-direction: column; }
+  .done-actions { flex-direction: column; }
+}
