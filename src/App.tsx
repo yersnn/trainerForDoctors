@@ -1,12 +1,43 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext, useContext } from 'react'
 import { ImageComparison } from '@/components/ui/image-comparison-slider'
 import { SparklesText } from '@/components/ui/sparkles-text'
 import { AuroraBackground } from '@/components/ui/aurora-background'
 import { ShineButton } from '@/components/ui/shine-button'
 import { Button } from '@/components/ui/button'
 import { motion, useScroll, AnimatePresence } from 'framer-motion'
-import { ChevronRight, Menu, X, Eye, Layers, Shield, Microscope, ArrowLeft, Check, RotateCcw } from 'lucide-react'
+import { ChevronRight, Menu, X, Eye, Layers, Shield, Microscope, ArrowLeft, Check, RotateCcw, Globe } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { type Lang, type TranslationKey, t as translate } from '@/i18n'
+
+const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: 'en', setLang: () => {} })
+function useLang() { return useContext(LangContext) }
+function useT() {
+  const { lang } = useLang()
+  return (key: TranslationKey) => translate(key, lang)
+}
+
+const langLabels: Record<Lang, string> = { en: 'EN', ru: 'RU', kz: 'KZ' }
+const langOrder: Lang[] = ['en', 'ru', 'kz']
+
+function LangSwitcher() {
+  const { lang, setLang } = useLang()
+  return (
+    <div className="flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm p-0.5">
+      {langOrder.map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          className={cn(
+            'text-xs font-semibold px-2.5 py-1 rounded-full transition-all duration-200',
+            l === lang ? 'bg-primary text-white shadow-sm' : 'text-muted-foreground hover:text-foreground'
+          )}
+        >
+          {langLabels[l]}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 interface ImageData {
   id: number
@@ -37,16 +68,17 @@ const BASE = import.meta.env.BASE_URL
    LANDING PAGE
    =========================== */
 
-const navItems = [
-  { name: 'Features', href: '#features' },
-  { name: 'How it works', href: '#how-it-works' },
-  { name: 'About', href: '#about' },
+const navKeys: { key: TranslationKey; href: string }[] = [
+  { key: 'nav_features', href: '#features' },
+  { key: 'nav_how', href: '#how-it-works' },
+  { key: 'nav_about', href: '#about' },
 ]
 
 function Header({ onStart }: { onStart: () => void }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { scrollYProgress } = useScroll()
+  const t = useT()
 
   useEffect(() => {
     const unsub = scrollYProgress.on('change', (v) => setScrolled(v > 0.03))
@@ -69,9 +101,9 @@ function Header({ onStart }: { onStart: () => void }) {
 
               <div className="hidden lg:block">
                 <ul className="flex gap-8 text-sm">
-                  {navItems.map((item) => (
-                    <li key={item.name}>
-                      <a href={item.href} className="text-muted-foreground hover:text-foreground duration-150">{item.name}</a>
+                  {navKeys.map((item) => (
+                    <li key={item.key}>
+                      <a href={item.href} className="text-muted-foreground hover:text-foreground duration-150">{t(item.key)}</a>
                     </li>
                   ))}
                 </ul>
@@ -81,15 +113,16 @@ function Header({ onStart }: { onStart: () => void }) {
             <div className="bg-white group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none">
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
-                  {navItems.map((item) => (
-                    <li key={item.name}>
-                      <a href={item.href} className="text-muted-foreground hover:text-foreground duration-150">{item.name}</a>
+                  {navKeys.map((item) => (
+                    <li key={item.key}>
+                      <a href={item.href} className="text-muted-foreground hover:text-foreground duration-150">{t(item.key)}</a>
                     </li>
                   ))}
                 </ul>
               </div>
+              <LangSwitcher />
               <ShineButton size="sm" className="bg-primary hover:bg-primary/90" onClick={onStart}>
-                Start Training
+                {t('start_training')}
               </ShineButton>
             </div>
           </div>
@@ -100,6 +133,8 @@ function Header({ onStart }: { onStart: () => void }) {
 }
 
 function Landing({ onStart }: { onStart: () => void }) {
+  const t = useT()
+
   return (
     <div className="overflow-x-hidden bg-white">
       <Header onStart={onStart} />
@@ -110,13 +145,13 @@ function Landing({ onStart }: { onStart: () => void }) {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
               <SparklesText
-                text="Endoscopy Trainer"
+                text={t('hero_title')}
                 className="text-balance text-5xl md:text-6xl xl:text-7xl text-foreground"
                 colors={{ first: '#0284c7', second: '#38bdf8' }}
                 sparklesCount={12}
               />
               <p className="mt-8 max-w-xl text-balance text-lg text-muted-foreground mx-auto lg:mx-0">
-                AI-powered polyp detection training platform. Sharpen your diagnostic skills with 50 real endoscopic cases, expert-annotated masks, and instant visual comparison.
+                {t('hero_desc')}
               </p>
 
               <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
@@ -125,7 +160,7 @@ function Landing({ onStart }: { onStart: () => void }) {
                   className="h-14 rounded-full pl-6 pr-4 text-base bg-primary hover:bg-primary/90"
                   onClick={onStart}
                 >
-                  <span className="text-nowrap">Start Training</span>
+                  <span className="text-nowrap">{t('start_training')}</span>
                   <ChevronRight className="ml-1" />
                 </ShineButton>
                 <Button
@@ -134,7 +169,7 @@ function Landing({ onStart }: { onStart: () => void }) {
                   className="h-14 rounded-full px-5 text-base hover:bg-zinc-950/5"
                   onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  <span className="text-nowrap">Learn more</span>
+                  <span className="text-nowrap">{t('learn_more')}</span>
                 </Button>
               </div>
             </div>
@@ -154,19 +189,19 @@ function Landing({ onStart }: { onStart: () => void }) {
       <section id="features" className="py-24 bg-slate-50/50">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Features</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Everything you need to train</h2>
-            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">A focused, distraction-free environment to practice polyp detection on real clinical endoscopy images.</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('features_label')}</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">{t('features_title')}</h2>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{t('features_desc')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: Eye, title: '50 Clinical Cases', desc: 'Real endoscopic images across Easy, Medium, and Hard difficulty levels.' },
-              { icon: Layers, title: 'Mask Comparison Slider', desc: 'Interactive before/after slider to compare your observation with expert annotations.' },
-              { icon: Shield, title: 'Fully Private', desc: 'No backend, no data collection. All answers stay on your device in local storage.' },
-            ].map((f) => (
+            {([
+              { icon: Eye, titleKey: 'feat1_title' as const, descKey: 'feat1_desc' as const },
+              { icon: Layers, titleKey: 'feat2_title' as const, descKey: 'feat2_desc' as const },
+              { icon: Shield, titleKey: 'feat3_title' as const, descKey: 'feat3_desc' as const },
+            ]).map((f) => (
               <motion.div
-                key={f.title}
+                key={f.titleKey}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -176,8 +211,8 @@ function Landing({ onStart }: { onStart: () => void }) {
                 <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
                   <f.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{f.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{t(f.titleKey)}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{t(f.descKey)}</p>
               </motion.div>
             ))}
           </div>
@@ -188,16 +223,16 @@ function Landing({ onStart }: { onStart: () => void }) {
       <section id="how-it-works" className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">How it works</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">3 steps per case</h2>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('how_label')}</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">{t('how_title')}</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { step: '01', title: 'Observe', desc: 'View the endoscopic image and decide whether you see a suspicious region.' },
-              { step: '02', title: 'Compare', desc: 'Use the interactive slider to compare your observation against the AI-annotated mask.' },
-              { step: '03', title: 'Decide', desc: 'Make your final clinical decision — Polyp or No Polyp — and move to the next case.' },
-            ].map((s, i) => (
+            {([
+              { step: '01', titleKey: 'step1_title' as const, descKey: 'step1_desc' as const },
+              { step: '02', titleKey: 'step2_title' as const, descKey: 'step2_desc' as const },
+              { step: '03', titleKey: 'step3_title' as const, descKey: 'step3_desc' as const },
+            ]).map((s, i) => (
               <motion.div
                 key={s.step}
                 initial={{ opacity: 0, y: 20 }}
@@ -207,8 +242,8 @@ function Landing({ onStart }: { onStart: () => void }) {
                 className="text-center p-8"
               >
                 <div className="text-5xl font-black text-primary/15 mb-4">{s.step}</div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                <h3 className="text-xl font-semibold text-foreground mb-3">{t(s.titleKey)}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{t(s.descKey)}</p>
               </motion.div>
             ))}
           </div>
@@ -219,20 +254,20 @@ function Landing({ onStart }: { onStart: () => void }) {
       <section id="about" className="py-24 bg-slate-50/50">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <SparklesText
-            text="Ready to train?"
+            text={t('cta_title')}
             className="text-3xl md:text-5xl text-foreground mb-6"
             colors={{ first: '#0284c7', second: '#38bdf8' }}
             sparklesCount={8}
           />
           <p className="text-muted-foreground mb-10 max-w-lg mx-auto">
-            No sign-up required. No data leaves your browser. Just you and 50 clinical cases.
+            {t('cta_desc')}
           </p>
           <ShineButton
             size="lg"
             className="h-14 rounded-full px-8 text-base bg-primary hover:bg-primary/90"
             onClick={onStart}
           >
-            Start Training Now
+            {t('start_now')}
             <ChevronRight className="ml-1" />
           </ShineButton>
         </div>
@@ -245,7 +280,7 @@ function Landing({ onStart }: { onStart: () => void }) {
             <Microscope className="h-4 w-4 text-primary" />
             <span>EndoTrainer</span>
           </div>
-          <p>Built for medical education. No patient data is collected.</p>
+          <p>{t('footer_text')}</p>
         </div>
       </footer>
     </div>
@@ -261,6 +296,7 @@ function Trainer({ images, onExit }: { images: ImageData[]; onExit: () => void }
   const [step, setStep] = useState(1)
   const [answers, setAnswers] = useState<Answer[]>([])
   const [finished, setFinished] = useState(false)
+  const t = useT()
 
   const handleRestart = () => {
     setCurrent(0)
@@ -281,15 +317,15 @@ function Trainer({ images, onExit }: { images: ImageData[]; onExit: () => void }
           <div className="h-16 w-16 rounded-full bg-green-50 text-green-500 flex items-center justify-center mx-auto mb-6">
             <Check className="h-8 w-8" />
           </div>
-          <h2 className="text-2xl font-bold text-foreground mb-2">Session Complete</h2>
-          <p className="text-muted-foreground mb-8">You reviewed all {images.length} cases.</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">{t('session_complete')}</h2>
+          <p className="text-muted-foreground mb-8">{t('reviewed_all')} {images.length} {t('cases')}.</p>
           <div className="flex gap-3 justify-center">
             <Button className="rounded-full bg-primary hover:bg-primary/90" onClick={handleRestart}>
               <RotateCcw className="h-4 w-4 mr-2" />
-              Restart
+              {t('restart')}
             </Button>
             <Button variant="outline" className="rounded-full" onClick={onExit}>
-              Back to Home
+              {t('back_home')}
             </Button>
           </div>
         </motion.div>
@@ -365,13 +401,13 @@ function Trainer({ images, onExit }: { images: ImageData[]; onExit: () => void }
             {/* Question + buttons */}
             <div className="mt-6 text-center">
               <h2 className="text-lg font-semibold text-foreground mb-1">
-                {step === 1 && 'Do you see a suspicious region?'}
-                {step === 2 && 'Compare with annotated mask'}
-                {step === 3 && 'What is your final decision?'}
+                {step === 1 && t('q_suspicious')}
+                {step === 2 && t('q_compare')}
+                {step === 3 && t('q_decision')}
               </h2>
 
               {step === 2 && (
-                <p className="text-sm text-muted-foreground mb-4">Drag the slider to compare original with expert-annotated mask.</p>
+                <p className="text-sm text-muted-foreground mb-4">{t('slider_hint')}</p>
               )}
 
               <div className="flex gap-3 justify-center mt-4">
@@ -381,14 +417,14 @@ function Trainer({ images, onExit }: { images: ImageData[]; onExit: () => void }
                       className="rounded-full h-11 px-8 bg-green-600 hover:bg-green-700 text-white"
                       onClick={() => handleSuspicious('yes')}
                     >
-                      Yes, suspicious
+                      {t('yes_suspicious')}
                     </Button>
                     <Button
                       variant="outline"
                       className="rounded-full h-11 px-8"
                       onClick={() => handleSuspicious('no')}
                     >
-                      No, looks normal
+                      {t('no_normal')}
                     </Button>
                   </>
                 )}
@@ -398,7 +434,7 @@ function Trainer({ images, onExit }: { images: ImageData[]; onExit: () => void }
                     className="rounded-full h-11 px-8 bg-primary hover:bg-primary/90"
                     onClick={handleContinue}
                   >
-                    Continue to decision
+                    {t('continue_btn')}
                     <ChevronRight className="h-4 w-4 ml-1" />
                   </ShineButton>
                 )}
@@ -409,14 +445,14 @@ function Trainer({ images, onExit }: { images: ImageData[]; onExit: () => void }
                       className="rounded-full h-11 px-8 bg-red-600 hover:bg-red-700 text-white"
                       onClick={() => handleDecision('polyp')}
                     >
-                      Polyp detected
+                      {t('polyp_detected')}
                     </Button>
                     <Button
                       variant="outline"
                       className="rounded-full h-11 px-8"
                       onClick={() => handleDecision('no_polyp')}
                     >
-                      No polyp
+                      {t('no_polyp')}
                     </Button>
                   </>
                 )}
@@ -436,6 +472,11 @@ function Trainer({ images, onExit }: { images: ImageData[]; onExit: () => void }
 function App() {
   const [screen, setScreen] = useState('landing')
   const [images, setImages] = useState<ImageData[]>([])
+  const [lang, setLang] = useState<Lang>(() => (localStorage.getItem('lang') as Lang) || 'en')
+
+  useEffect(() => {
+    localStorage.setItem('lang', lang)
+  }, [lang])
 
   useEffect(() => {
     fetch(`${BASE}metadata.json`)
@@ -443,19 +484,18 @@ function App() {
       .then(data => setImages(shuffle(data)))
   }, [])
 
-  if (screen === 'landing') {
-    return <Landing onStart={() => setScreen('training')} />
-  }
-
-  if (images.length === 0) {
-    return <div className="flex items-center justify-center min-h-screen text-muted-foreground">Loading images...</div>
-  }
-
   return (
-    <Trainer
-      images={images}
-      onExit={() => setScreen('landing')}
-    />
+    <LangContext.Provider value={{ lang, setLang }}>
+      {screen === 'landing' ? (
+        <Landing onStart={() => setScreen('training')} />
+      ) : images.length === 0 ? (
+        <div className="flex items-center justify-center min-h-screen text-muted-foreground">
+          {translate('loading', lang)}
+        </div>
+      ) : (
+        <Trainer images={images} onExit={() => setScreen('landing')} />
+      )}
+    </LangContext.Provider>
   )
 }
 
