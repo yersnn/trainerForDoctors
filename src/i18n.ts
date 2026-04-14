@@ -10,9 +10,9 @@ export const translations = {
   // Hero
   hero_title: { en: 'Endoscopy Trainer', ru: 'Эндоскопия Тренажёр', kz: 'Эндоскопия Тренажёрі' },
   hero_desc: {
-    en: 'AI-powered polyp detection training platform. Sharpen your diagnostic skills with 50 real endoscopic cases, expert-annotated masks, and instant visual comparison.',
-    ru: 'Платформа для тренировки обнаружения полипов с помощью ИИ. Совершенствуйте диагностические навыки на 50 реальных эндоскопических случаях с экспертными аннотациями и визуальным сравнением.',
-    kz: 'Жасанды интеллект арқылы полиптерді анықтау тренажёрі. 50 нақты эндоскопиялық жағдайда, сарапшылық аннотациялармен және визуалды салыстырумен диагностикалық дағдыларыңызды жетілдіріңіз.',
+    en: 'AI-powered polyp detection training platform. Sharpen your diagnostic skills with 100 real endoscopic cases, expert-annotated masks, and instant visual comparison.',
+    ru: 'Платформа для тренировки обнаружения полипов с помощью ИИ. Совершенствуйте диагностические навыки на 100 реальных эндоскопических случаях с экспертными аннотациями и визуальным сравнением.',
+    kz: 'Жасанды интеллект арқылы полиптерді анықтау тренажёрі. 100 нақты эндоскопиялық жағдайда, сарапшылық аннотациялармен және визуалды салыстырумен диагностикалық дағдыларыңызды жетілдіріңіз.',
   },
   learn_more: { en: 'Learn more', ru: 'Узнать больше', kz: 'Толығырақ' },
 
@@ -24,7 +24,7 @@ export const translations = {
     ru: 'Сосредоточенная среда для практики обнаружения полипов на реальных клинических эндоскопических снимках.',
     kz: 'Нақты клиникалық эндоскопиялық кескіндерде полиптерді анықтау тәжірибесіне арналған ыңғайлы орта.',
   },
-  feat1_title: { en: '50 Clinical Cases', ru: '50 клинических случаев', kz: '50 клиникалық жағдай' },
+  feat1_title: { en: '100 Clinical Cases', ru: '100 клинических случаев', kz: '100 клиникалық жағдай' },
   feat1_desc: {
     en: 'Real endoscopic images across Easy, Medium, and Hard difficulty levels.',
     ru: 'Реальные эндоскопические снимки с уровнями сложности: Лёгкий, Средний и Сложный.',
@@ -68,9 +68,9 @@ export const translations = {
   // CTA
   cta_title: { en: 'Ready to train?', ru: 'Готовы к обучению?', kz: 'Оқуға дайынсыз ба?' },
   cta_desc: {
-    en: 'No sign-up required. No data leaves your browser. Just you and 50 clinical cases.',
-    ru: 'Регистрация не нужна. Данные не покидают ваш браузер. Только вы и 50 клинических случаев.',
-    kz: 'Тіркелу қажет емес. Деректер браузерден шықпайды. Тек сіз және 50 клиникалық жағдай.',
+    en: 'No sign-up required. No data leaves your browser. Just you and 100 clinical cases.',
+    ru: 'Регистрация не нужна. Данные не покидают ваш браузер. Только вы и 100 клинических случаев.',
+    kz: 'Тіркелу қажет емес. Деректер браузерден шықпайды. Тек сіз және 100 клиникалық жағдай.',
   },
   start_now: { en: 'Start Training Now', ru: 'Начать обучение', kz: 'Оқуды бастау' },
 
