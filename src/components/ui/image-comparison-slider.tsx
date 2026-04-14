@@ -48,7 +48,7 @@ export const ImageComparison: React.FC<ImageComparisonProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full mx-auto select-none rounded-xl overflow-hidden shadow-2xl"
+      className="relative w-full h-full mx-auto select-none overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseUp}
       onTouchMove={handleTouchMove}
@@ -71,7 +71,7 @@ export const ImageComparison: React.FC<ImageComparisonProps> = ({
       <img
         src={beforeImage}
         alt={altBefore}
-        className="block h-full w-full object-contain"
+        className="block w-full max-h-full object-contain"
         draggable="false"
       />
 

@@ -383,18 +383,18 @@ function Trainer({ images, onExit }: { images: ImageData[]; onExit: () => void }
             className="w-full max-w-3xl flex flex-col items-center"
           >
             {/* Image */}
-            <div className="w-full rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-slate-50">
+            <div className="w-full rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-slate-50"
+              style={{ maxHeight: '60vh' }}
+            >
               {step === 1 ? (
-                <img src={originalSrc} alt="Endoscopy" className="w-full max-h-[60vh] object-contain" />
+                <img src={originalSrc} alt="Endoscopy" className="w-full h-full object-contain" />
               ) : (
-                <div className="max-h-[60vh] overflow-hidden">
-                  <ImageComparison
-                    beforeImage={originalSrc}
-                    afterImage={maskSrc}
-                    altBefore="Original endoscopy"
-                    altAfter="Annotated mask"
-                  />
-                </div>
+                <ImageComparison
+                  beforeImage={originalSrc}
+                  afterImage={maskSrc}
+                  altBefore="Original endoscopy"
+                  altAfter="Annotated mask"
+                />
               )}
             </div>
 
