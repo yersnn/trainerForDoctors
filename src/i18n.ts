@@ -10,9 +10,9 @@ export const translations = {
   // Hero
   hero_title: { en: 'Endoscopy Trainer', ru: 'Эндоскопия Тренажёр', kz: 'Эндоскопия Тренажёрі' },
   hero_desc: {
-    en: 'AI-powered polyp detection training platform. Sharpen your diagnostic skills with 100 real endoscopic cases, expert-annotated masks, and instant visual comparison.',
-    ru: 'Платформа для тренировки обнаружения полипов с помощью ИИ. Совершенствуйте диагностические навыки на 100 реальных эндоскопических случаях с экспертными аннотациями и визуальным сравнением.',
-    kz: 'Жасанды интеллект арқылы полиптерді анықтау тренажёрі. 100 нақты эндоскопиялық жағдайда, сарапшылық аннотациялармен және визуалды салыстырумен диагностикалық дағдыларыңызды жетілдіріңіз.',
+    en: 'AI-powered polyp detection training platform. Sharpen your diagnostic skills with 100 real endoscopic cases, AI-generated masks, and instant visual comparison.',
+    ru: 'Платформа для тренировки обнаружения полипов с помощью ИИ. Совершенствуйте диагностические навыки на 100 реальных эндоскопических случаях с масками, созданными ИИ и визуальным сравнением.',
+    kz: 'Жасанды интеллект арқылы полиптерді анықтау тренажёрі. 100 нақты эндоскопиялық жағдайда, жасанды интеллект жасаған маскалармен және визуалды салыстырумен диагностикалық дағдыларыңызды жетілдіріңіз.',
   },
   learn_more: { en: 'Learn more', ru: 'Узнать больше', kz: 'Толығырақ' },
 
@@ -32,9 +32,9 @@ export const translations = {
   },
   feat2_title: { en: 'Mask Comparison Slider', ru: 'Слайдер сравнения масок', kz: 'Маска салыстыру слайдері' },
   feat2_desc: {
-    en: 'Interactive before/after slider to compare your observation with expert annotations.',
-    ru: 'Интерактивный слайдер «до/после» для сравнения вашего наблюдения с экспертными аннотациями.',
-    kz: 'Сіздің бақылауыңызды сарапшылық аннотациялармен салыстыру үшін интерактивті «дейін/кейін» слайдері.',
+    en: 'Interactive before/after slider to compare your observation with AI-generated masks.',
+    ru: 'Интерактивный слайдер «до/после» для сравнения вашего наблюдения с масками, созданными ИИ.',
+    kz: 'Сіздің бақылауыңызды жасанды интеллект жасаған маскалармен салыстыру үшін интерактивті «дейін/кейін» слайдері.',
   },
   feat3_title: { en: 'Fully Private', ru: 'Полная приватность', kz: 'Толық құпиялылық' },
   feat3_desc: {
@@ -91,9 +91,9 @@ export const translations = {
   q_compare: { en: 'Compare with annotated mask', ru: 'Сравните с аннотированной маской', kz: 'Аннотацияланған маскамен салыстырыңыз' },
   q_decision: { en: 'What is your final decision?', ru: 'Каково ваше окончательное решение?', kz: 'Сіздің соңғы шешіміңіз қандай?' },
   slider_hint: {
-    en: 'Drag the slider to compare original with expert-annotated mask.',
-    ru: 'Перетащите слайдер для сравнения оригинала с экспертной маской.',
-    kz: 'Түпнұсқаны сарапшылық маскамен салыстыру үшін слайдерді жылжытыңыз.',
+    en: 'Drag the slider to compare original with AI-generated mask.',
+    ru: 'Перетащите слайдер для сравнения оригинала с маской, созданной ИИ.',
+    kz: 'Түпнұсқаны жасанды интеллект жасаған маскамен салыстыру үшін слайдерді жылжытыңыз.',
   },
   yes_suspicious: { en: 'Yes, suspicious', ru: 'Да, подозрительно', kz: 'Иә, күдікті' },
   no_normal: { en: 'No, looks normal', ru: 'Нет, выглядит нормально', kz: 'Жоқ, қалыпты' },
